@@ -1066,8 +1066,6 @@ function verifyAccess() {
     if (premiumCodes.includes(enteredCode)) {
     // Code valide - déverrouiller l'app
     document.getElementById('authOverlay').style.display = 'none';
-    document.getElementById('premiumApp').style.display = 'block';
-    document.getElementById('premiumHeader').style.display = 'block';
     
     // Sauvegarder l'accès pour cette session
     sessionStorage.setItem('tirageexpress_premium', 'true');
