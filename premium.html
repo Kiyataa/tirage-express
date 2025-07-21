@@ -1058,20 +1058,56 @@ let typePartie = 'doublette';
 let joueursDisponibles = [];
 let joueursSelectionnes = [];
 
-// Vérification de l'accès
+// REMPLACEZ votre fonction verifyAccess() par ceci dans premium.html :
+
 function verifyAccess() {
     const enteredCode = document.getElementById('accessCode').value.trim().toUpperCase();
     const errorDiv = document.getElementById('errorMessage');
     
-    if (premiumCodes.includes(enteredCode)) {
-    // Code valide - déverrouiller l'app
-    document.getElementById('authOverlay').style.display = 'none';
+    console.log('🔍 Code testé:', enteredCode);
     
-    // Sauvegarder l'accès pour cette session
-    sessionStorage.setItem('tirageexpress_premium', 'true');
+    // Codes fixes de base
+    const fixedCodes = [
+        'PREMIUM2025A', 'PREMIUM2025B', 'PREMIUM2025C', 'PREMIUM2025D', 'PREMIUM2025E'
+    ];
     
-    // Initialiser l'application
-    initializeApp();
+    // Pattern pour codes auto-générés : PREMIUM2025 + 3 caractères alphanumériques + 3 chiffres
+    const autoPattern = /^PREMIUM2025[A-Z0-9]{3}[0-9]{3}$/;
+    const proPattern = /^PRO2025[A-Z0-9]{3}[0-9]{3}$/;
+    
+    // Tests de validation
+    const isFixedCode = fixedCodes.includes(enteredCode);
+    const isAutoCode = autoPattern.test(enteredCode);
+    const isProCode = proPattern.test(enteredCode);
+    
+    console.log('✓ Code fixe?', isFixedCode);
+    console.log('✓ Code auto Premium?', isAutoCode);
+    console.log('✓ Code auto Pro?', isProCode);
+    
+    if (isFixedCode || isAutoCode || isProCode) {
+        console.log('🎉 ACCÈS ACCORDÉ !');
+        
+        // Cacher l'overlay et afficher l'app
+        document.getElementById('authOverlay').style.display = 'none';
+        document.getElementById('premiumApp').style.display = 'block';
+        document.getElementById('premiumHeader').style.display = 'block';
+        
+        // Sauvegarder l'accès
+        sessionStorage.setItem('tirageexpress_premium', 'true');
+        sessionStorage.setItem('tirageexpress_code', enteredCode);
+        
+        // Initialiser l'application
+        initializeApp();
+        
+    } else {
+        console.log('❌ ACCÈS REFUSÉ');
+        console.log('Pattern attendu: PREMIUM2025[A-Z0-9]{3}[0-9]{3}');
+        
+        errorDiv.style.display = 'block';
+        document.getElementById('accessCode').value = '';
+        document.getElementById('accessCode').focus();
+    }
+}
                 
             } else {
                 // Code invalide
