@@ -1,5 +1,4 @@
-// netlify/functions/stripe-webhook.js
-// Fonction Netlify pour gérer les webhooks Stripe
+// netlify/functions/stripe-webhook.js - VERSION CORRIGÉE
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const sgMail = require('@sendgrid/mail');
@@ -7,237 +6,212 @@ const sgMail = require('@sendgrid/mail');
 // Configuration SendGrid
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-// Codes d'activation disponibles
-const CODES_PREMIUM = [
-    'PREMIUM2025A', 'PREMIUM2025B', 'PREMIUM2025C', 'PREMIUM2025D', 'PREMIUM2025E',
-    'PREMIUM2025F', 'PREMIUM2025G', 'PREMIUM2025H', 'PREMIUM2025I', 'PREMIUM2025J'
-];
+// Mapping des montants vers les plans
+const PLAN_MAPPING = {
+  100: 'TEST',        // 1€ = Test
+  4900: 'PREMIUM',    // 49€ = Premium
+  9900: 'PRO'         // 99€ = Pro
+};
 
-const CODES_PRO = [
-    'PRO2025A', 'PRO2025B', 'PRO2025C', 'PRO2025D', 'PRO2025E'
-];
-
-// Fonction pour envoyer l'email d'activation
-async function envoyerEmailActivation(email, nom, produit, codeActivation) {
-    console.log(`📧 Envoi email à ${email} pour ${produit} avec code ${codeActivation}`);
-
-    const msg = {
-        to: email,
-        from: 'julienlrzt@gmail.com', // Utilisation de votre Gmail vérifié
-        subject: `🎉 Votre code d'activation TirageExpress ${produit}`,
-        html: `
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #2c3e50; margin: 0; padding: 0; }
-        .container { max-width: 600px; margin: 0 auto; }
-        .header { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-        .content { background: white; padding: 30px; border-radius: 0 0 10px 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .code-box { background: #f8f9fa; border: 2px dashed #e74c3c; padding: 20px; text-align: center; margin: 20px 0; border-radius: 10px; }
-        .code { font-size: 24px; font-weight: bold; color: #e74c3c; letter-spacing: 3px; }
-        .btn { background: #e74c3c; color: white; padding: 15px 30px; text-decoration: none; border-radius: 25px; display: inline-block; margin: 20px 0; font-weight: bold; }
-        .highlight { background: #d4edda; border-left: 4px solid #28a745; padding: 15px; margin: 15px 0; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>🎉 Bienvenue dans TirageExpress ${produit} !</h1>
-            <p>Merci pour votre achat</p>
-        </div>
-        
-        <div class="content">
-            <h2>Bonjour ${nom || 'Client'},</h2>
-            
-            <p>Félicitations ! Votre achat de <strong>TirageExpress ${produit}</strong> a bien été validé.</p>
-            
-            <div class="highlight">
-                <h3>✅ Votre abonnement est maintenant actif !</h3>
-                <p>Vous avez maintenant accès à toutes les fonctionnalités ${produit} de TirageExpress.</p>
-            </div>
-            
-            <h3>🔑 Votre code d'activation :</h3>
-            <div class="code-box">
-                <div class="code">${codeActivation}</div>
-                <p><em>Gardez ce code précieusement, il vous permettra d'accéder à votre compte</em></p>
-            </div>
-            
-            <h3>🚀 Comment utiliser TirageExpress ${produit} :</h3>
-            <ol>
-                <li>Cliquez sur le bouton ci-dessous pour accéder à l'application</li>
-                <li>Entrez votre code d'activation : <strong>${codeActivation}</strong></li>
-                <li>Profitez de toutes les fonctionnalités ${produit} !</li>
-            </ol>
-            
-            <div style="text-align: center;">
-                <a href="https://tirage-express.com/premium.html" class="btn">🎯 Accéder à TirageExpress ${produit}</a>
-            </div>
-            
-            <h3>🎁 Vos avantages ${produit} :</h3>
-            ${produit === 'Premium' ? `
-            <ul>
-                <li>✅ Joueurs illimités</li>
-                <li>✅ Tous types de parties (tête-à-tête, doublettes, triplettes)</li>
-                <li>✅ Sauvegarde permanente</li>
-                <li>✅ Export PDF des feuilles de match</li>
-                <li>✅ Support prioritaire par email</li>
-            </ul>
-            ` : `
-            <ul>
-                <li>✅ Toutes les fonctionnalités Premium</li>
-                <li>✅ Interface personnalisable (logo, couleurs)</li>
-                <li>✅ Modèles de tournois pré-configurés</li>
-                <li>✅ Formation personnalisée incluse (1h)</li>
-                <li>✅ Support téléphonique dédié</li>
-                <li>✅ API d'intégration</li>
-            </ul>
-            `}
-            
-            <div class="highlight">
-                <h3>💡 Besoin d'aide ?</h3>
-                <p>Notre équipe est là pour vous accompagner :</p>
-                <p>📧 Email : <strong>tirageexpress.auto@gmail.com</strong></p>
-                <p>⏰ Réponse sous 24h pour les clients ${produit}</p>
-            </div>
-            
-            <p>Merci de faire confiance à TirageExpress pour vos tirages de pétanque !</p>
-            
-            <p style="margin-top: 30px;">
-                Cordialement,<br>
-                <strong>L'équipe TirageExpress</strong><br>
-                <em>Le tirage de pétanque en 30 secondes</em>
-            </p>
-        </div>
-        
-        <div style="text-align: center; color: #7f8c8d; padding: 20px; font-size: 0.9em;">
-            © 2025 TirageExpress - DigitCraft | tirageexpress.auto@gmail.com
-        </div>
-    </div>
-</body>
-</html>
-        `
-    };
-
-    try {
-        await sgMail.send(msg);
-        console.log(`✅ Email envoyé avec succès à ${email}`);
-        return true;
-    } catch (error) {
-        console.error(`❌ Erreur envoi email:`, error.message);
-        return false;
-    }
+// Génération de codes d'accès
+function generateAccessCode(plan) {
+  const prefix = plan === 'PRO' ? 'PRO2025' : 'PREMIUM2025';
+  const suffix = Math.random().toString(36).substring(2, 5).toUpperCase();
+  const timestamp = Date.now().toString().slice(-3);
+  return `${prefix}${suffix}${timestamp}`;
 }
 
-// Gestionnaire principal du webhook
-exports.handler = async (event, context) => {
-    console.log('🔄 Webhook reçu:', event.httpMethod);
-    
-    // Vérifier que c'est un POST
-    if (event.httpMethod !== 'POST') {
-        return {
-            statusCode: 405,
-            body: JSON.stringify({ error: 'Method not allowed' })
-        };
-    }
+// Templates d'emails
+const EMAIL_TEMPLATES = {
+  TEST: {
+    subject: '🧪 Test TirageExpress - Code d\'accès temporaire',
+    html: `
+      <h2>🧪 Test TirageExpress</h2>
+      <p>Merci pour votre test !</p>
+      <div style="background: #f39c12; color: white; padding: 20px; border-radius: 10px; text-align: center; margin: 20px 0;">
+        <h3>Code d'accès TEST</h3>
+        <p style="font-size: 24px; font-weight: bold; letter-spacing: 2px;">{{ACCESS_CODE}}</p>
+      </div>
+      <p><strong>⚠️ ATTENTION :</strong> Ceci est un code de test temporaire.</p>
+      <p>Pour accéder à la version complète : <a href="https://tirage-express.com/premium.html">tirage-express.com/premium.html</a></p>
+    `
+  },
+  PREMIUM: {
+    subject: '🎉 Bienvenue dans TirageExpress Premium !',
+    html: `
+      <h2>🎉 Bienvenue dans TirageExpress Premium !</h2>
+      <p>Merci pour votre achat ! Votre accès Premium est maintenant activé.</p>
+      <div style="background: #27ae60; color: white; padding: 20px; border-radius: 10px; text-align: center; margin: 20px 0;">
+        <h3>🔑 Votre Code d'Accès Premium</h3>
+        <p style="font-size: 24px; font-weight: bold; letter-spacing: 2px;">{{ACCESS_CODE}}</p>
+      </div>
+      
+      <h3>✅ Vos Fonctionnalités Premium</h3>
+      <ul>
+        <li>👥 <strong>Joueurs illimités</strong></li>
+        <li>🎯 <strong>Tous types de parties</strong> (tête-à-tête, doublettes, triplettes)</li>
+        <li>💾 <strong>Sauvegarde permanente</strong> de vos données</li>
+        <li>📊 <strong>Statistiques détaillées</strong></li>
+        <li>📄 <strong>Export PDF</strong> des feuilles de match</li>
+        <li>📞 <strong>Support prioritaire</strong> sous 24h</li>
+      </ul>
+      
+      <h3>🚀 Comment accéder ?</h3>
+      <ol>
+        <li>Rendez-vous sur : <a href="https://tirage-express.com/premium.html">tirage-express.com/premium.html</a></li>
+        <li>Entrez votre code d'accès : <strong>{{ACCESS_CODE}}</strong></li>
+        <li>Profitez de TirageExpress Premium !</li>
+      </ol>
+      
+      <p><strong>💡 Astuce :</strong> Sauvegardez ce code dans vos favoris !</p>
+      <p>Besoin d'aide ? Répondez à cet email ou contactez-nous à contact@tirage-express.com</p>
+    `
+  },
+  PRO: {
+    subject: '🏆 TirageExpress Pro - Accès VIP Activé !',
+    html: `
+      <h2>🏆 Bienvenue dans TirageExpress Pro !</h2>
+      <p>Félicitations ! Vous venez de rejoindre l'élite TirageExpress avec notre formule Pro.</p>
+      <div style="background: linear-gradient(135deg, #f39c12, #e67e22); color: white; padding: 20px; border-radius: 10px; text-align: center; margin: 20px 0;">
+        <h3>🔑 Code d'Accès Pro VIP</h3>
+        <p style="font-size: 24px; font-weight: bold; letter-spacing: 2px;">{{ACCESS_CODE}}</p>
+      </div>
+      
+      <h3>🏆 Vos Privilèges Pro</h3>
+      <ul>
+        <li>✅ <strong>Toutes les fonctionnalités Premium</strong></li>
+        <li>🎨 <strong>Interface personnalisable</strong> (logo, couleurs)</li>
+        <li>🏅 <strong>Modèles de tournois</strong> pré-configurés</li>
+        <li>📈 <strong>Rapports avancés</strong> et analyses</li>
+        <li>🔗 <strong>API d'intégration</strong> pour sites web</li>
+        <li>🎓 <strong>Formation personnalisée</strong> incluse (1h)</li>
+        <li>📞 <strong>Support téléphonique</strong> dédié</li>
+        <li>☁️ <strong>Sauvegarde cloud</strong> automatique</li>
+        <li>🚀 <strong>Accès anticipé</strong> aux nouveautés</li>
+      </ul>
+      
+      <h3>🎯 Prochaines Étapes</h3>
+      <ol>
+        <li>Accédez à votre espace Pro : <a href="https://tirage-express.com/premium.html">tirage-express.com/premium.html</a></li>
+        <li>Entrez votre code VIP : <strong>{{ACCESS_CODE}}</strong></li>
+        <li>Planifiez votre formation personnalisée</li>
+      </ol>
+      
+      <p><strong>📅 Formation Incluse :</strong> Nous vous contacterons sous 48h pour planifier votre session de formation personnalisée !</p>
+      <p>Contact VIP : contact@tirage-express.com | Priorité Pro</p>
+    `
+  }
+};
 
+exports.handler = async (event, context) => {
+  console.log('🔄 Webhook reçu:', event.httpMethod);
+  
+  if (event.httpMethod !== 'POST') {
+    return { statusCode: 405, body: 'Method Not Allowed' };
+  }
+
+  try {
+    // Vérification signature Stripe
     const sig = event.headers['stripe-signature'];
     const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
     
     let stripeEvent;
-    
     try {
-        stripeEvent = stripe.webhooks.constructEvent(event.body, sig, endpointSecret);
-        console.log('✅ Webhook Stripe vérifié:', stripeEvent.type);
+      stripeEvent = stripe.webhooks.constructEvent(event.body, sig, endpointSecret);
+      console.log('✅ Webhook Stripe vérifié:', stripeEvent.type);
     } catch (err) {
-        console.error(`❌ Webhook signature verification failed:`, err.message);
-        return {
-            statusCode: 400,
-            body: JSON.stringify({ error: `Webhook Error: ${err.message}` })
-        };
+      console.error('❌ Erreur signature webhook:', err.message);
+      return { statusCode: 400, body: `Webhook Error: ${err.message}` };
     }
 
-    // Traitement des événements Stripe
-    try {
-        switch (stripeEvent.type) {
-            case 'checkout.session.completed':
-                console.log('💰 Checkout session completed');
-                await handleCheckoutCompleted(stripeEvent.data.object);
-                break;
-            case 'payment_intent.succeeded':
-                console.log('💳 Payment intent succeeded');
-                await handlePaymentSucceeded(stripeEvent.data.object);
-                break;
-            default:
-                console.log(`🤷 Événement non géré: ${stripeEvent.type}`);
-        }
-
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ received: true })
-        };
-    } catch (error) {
-        console.error('❌ Erreur webhook:', error);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: error.message })
-        };
-    }
-};
-
-async function handleCheckoutCompleted(session) {
-    console.log('🔍 Analyse du checkout:', session.id);
-    
-    // Récupérer les détails du client
-    const customerEmail = session.customer_details?.email;
-    const customerName = session.customer_details?.name;
-    const amountTotal = session.amount_total;
-    
-    console.log(`📊 Détails: Email=${customerEmail}, Montant=${amountTotal}`);
-    
-    if (!customerEmail) {
-        console.error('❌ Email client introuvable');
-        return;
+    // Traitement des événements
+    if (stripeEvent.type === 'payment_intent.succeeded') {
+      console.log('💳 Payment intent succeeded');
+      const paymentIntent = stripeEvent.data.object;
+      console.log('💰 Payment succeeded:', paymentIntent.id);
+      
+      return { statusCode: 200, body: 'Payment intent handled' };
     }
 
-    // Déterminer le produit basé sur le montant
-    let produit, codeActivation;
-    
-    if (amountTotal === 4900) { // 49€ en centimes
-        produit = 'Premium';
-        codeActivation = getNextAvailableCode(CODES_PREMIUM);
-    } else if (amountTotal === 9900) { // 99€ en centimes
-        produit = 'Pro';
-        codeActivation = getNextAvailableCode(CODES_PRO);
-    } else if (amountTotal === 0) { // Test à 0€
-        produit = 'Premium';
-        codeActivation = 'TEST2025DEMO';
-    } else {
+    if (stripeEvent.type === 'checkout.session.completed') {
+      console.log('💰 Checkout session completed');
+      const session = stripeEvent.data.object;
+      
+      console.log('🔍 Analyse du checkout:', session.id);
+      
+      // Extraction des données
+      const customerEmail = session.customer_details?.email || session.customer_email;
+      const amountTotal = session.amount_total;
+      
+      console.log('📊 Détails: Email=' + customerEmail + ', Montant=' + amountTotal);
+      
+      // Identification du plan
+      const plan = PLAN_MAPPING[amountTotal];
+      
+      if (!plan) {
         console.error('❌ Montant non reconnu:', amountTotal);
-        return;
+        console.log('💡 Montants acceptés:', Object.keys(PLAN_MAPPING).join(', '));
+        return { statusCode: 400, body: 'Montant non reconnu' };
+      }
+      
+      console.log('🎯 Plan identifié:', plan);
+      
+      // Génération du code d'accès
+      const accessCode = generateAccessCode(plan);
+      console.log('🔑 Code généré:', accessCode);
+      
+      // Préparation de l'email
+      const template = EMAIL_TEMPLATES[plan];
+      const emailHtml = template.html.replace(/{{ACCESS_CODE}}/g, accessCode);
+      
+      const emailData = {
+        to: customerEmail,
+        from: {
+          email: 'contact@tirage-express.com',
+          name: 'TirageExpress'
+        },
+        subject: template.subject,
+        html: emailHtml
+      };
+      
+      console.log('📧 Envoi email à:', customerEmail);
+      
+      try {
+        await sgMail.send(emailData);
+        console.log('✅ Email envoyé avec succès !');
+        
+        return {
+          statusCode: 200,
+          body: JSON.stringify({
+            success: true,
+            message: 'Email envoyé',
+            plan: plan,
+            accessCode: accessCode
+          })
+        };
+        
+      } catch (emailError) {
+        console.error('❌ Erreur SendGrid:', emailError.message);
+        console.error('📋 Détails:', emailError.response?.body);
+        
+        return {
+          statusCode: 500,
+          body: JSON.stringify({
+            error: 'Erreur envoi email',
+            details: emailError.message
+          })
+        };
+      }
     }
 
-    console.log(`🎯 Produit déterminé: ${produit}, Code: ${codeActivation}`);
+    console.log('🤷 Événement non traité:', stripeEvent.type);
+    return { statusCode: 200, body: 'Événement non traité' };
 
-    // Envoyer l'email d'activation
-    const emailEnvoye = await envoyerEmailActivation(customerEmail, customerName, produit, codeActivation);
-    
-    if (emailEnvoye) {
-        console.log(`✅ Processus complet réussi pour ${customerEmail}`);
-    } else {
-        console.error(`❌ Échec envoi email pour ${customerEmail}`);
-    }
-}
-
-async function handlePaymentSucceeded(paymentIntent) {
-    console.log('💰 Payment succeeded:', paymentIntent.id);
-    // Traitement supplémentaire si nécessaire
-}
-
-function getNextAvailableCode(codesList) {
-    // Version simplifiée - dans la vraie vie, utilisez une base de données
-    // pour tracker les codes utilisés
-    const randomIndex = Math.floor(Math.random() * codesList.length);
-    return codesList[randomIndex];
-}
+  } catch (error) {
+    console.error('💥 Erreur générale:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: error.message })
+    };
+  }
+};
