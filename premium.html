@@ -1064,17 +1064,16 @@ function verifyAccess() {
     const errorDiv = document.getElementById('errorMessage');
     
     if (premiumCodes.includes(enteredCode)) {
-        // ... reste du code
-                // Code valide - déverrouiller l'app
-                document.getElementById('authOverlay').style.display = 'none';
-                document.getElementById('premiumApp').style.display = 'block';
-                document.getElementById('premiumHeader').style.display = 'block';
-                
-                // Sauvegarder l'accès pour cette session
-                sessionStorage.setItem('tirageexpress_premium', 'true');
-                
-                // Initialiser l'application
-                initializeApp();
+    // Code valide - déverrouiller l'app
+    document.getElementById('authOverlay').style.display = 'none';
+    document.getElementById('premiumApp').style.display = 'block';
+    document.getElementById('premiumHeader').style.display = 'block';
+    
+    // Sauvegarder l'accès pour cette session
+    sessionStorage.setItem('tirageexpress_premium', 'true');
+    
+    // Initialiser l'application
+    initializeApp();
                 
             } else {
                 // Code invalide
