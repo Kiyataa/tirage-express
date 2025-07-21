@@ -1,0 +1,27 @@
+{
+  "name": "tirage-express",
+  "version": "1.0.0",
+  "description": "TirageExpress - Le tirage de pétanque en 30 secondes",
+  "main": "index.js",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'No build process needed for static site'",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "petanque",
+    "tirage",
+    "stripe",
+    "netlify",
+    "webhook"
+  ],
+  "author": "DigitCraft",
+  "license": "MIT",
+  "dependencies": {
+    "stripe": "^14.0.0",
+    "@sendgrid/mail": "^8.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

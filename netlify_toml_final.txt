@@ -1,0 +1,55 @@
+# Configuration Netlify pour TirageExpress
+[build]
+  # Dossier de build (pour les sites statiques, c'est souvent la racine)
+  publish = "."
+  
+  # Dossier des fonctions Netlify
+  functions = "netlify/functions"
+  
+  # Commande de build (optionnelle pour un site statique)
+  command = "echo 'Site statique - pas de build nécessaire'"
+
+# Configuration des fonctions
+[functions]
+  # Bundler pour les fonctions (esbuild est plus rapide)
+  node_bundler = "esbuild"
+
+# Redirections et règles
+[[redirects]]
+  # Redirection pour l'API webhook Stripe
+  from = "/api/stripe-webhook"
+  to = "/.netlify/functions/stripe-webhook"
+  status = 200
+
+[[redirects]]
+  # Redirection pour toutes les autres routes API vers les fonctions
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# Variables d'environnement par défaut (les vraies sont dans le dashboard)
+[context.production.environment]
+  NODE_ENV = "production"
+
+[context.deploy-preview.environment]
+  NODE_ENV = "development"
+
+[context.branch-deploy.environment]
+  NODE_ENV = "development"
+
+# Headers de sécurité
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Headers spécifiques pour l'API
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Headers = "Content-Type, stripe-signature"
+    Access-Control-Allow-Methods = "POST, OPTIONS"
