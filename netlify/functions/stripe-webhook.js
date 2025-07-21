@@ -23,7 +23,7 @@ async function envoyerEmailActivation(email, nom, produit, codeActivation) {
 
     const msg = {
         to: email,
-        from: 'tirageexpress.auto@gmail.com', // Utilisation de votre Gmail vérifié
+        from: 'julienlrzt@gmail.com', // Utilisation de votre Gmail vérifié
         subject: `🎉 Votre code d'activation TirageExpress ${produit}`,
         html: `
 <!DOCTYPE html>
