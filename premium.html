@@ -1054,12 +1054,12 @@ const premiumCodes = [
     // Ajoutez autant de codes que nécessaire pour vos clients
 ];
         
-        // Variables globales de l'app
-        let typePartie = 'doublette';
-        let joueursDisponibles = [];
-        let joueursSelectionnes = [];
-        
-        // Vérification de l'accès
+// Variables globales de l'app
+let typePartie = 'doublette';
+let joueursDisponibles = [];
+let joueursSelectionnes = [];
+
+// Vérification de l'accès
 function verifyAccess() {
     const enteredCode = document.getElementById('accessCode').value.trim().toUpperCase();
     const errorDiv = document.getElementById('errorMessage');
