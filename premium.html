@@ -1060,11 +1060,12 @@ const premiumCodes = [
         let joueursSelectionnes = [];
         
         // Vérification de l'accès
-        function verifyAccess() {
-            const enteredCode = document.getElementById('accessCode').value.trim().toUpperCase();
-            const errorDiv = document.getElementById('errorMessage');
-            
-            if (premiumCodes.includes(enteredCode)) {
+function verifyAccess() {
+    const enteredCode = document.getElementById('accessCode').value.trim().toUpperCase();
+    const errorDiv = document.getElementById('errorMessage');
+    
+    if (premiumCodes.includes(enteredCode)) {
+        // ... reste du code
                 // Code valide - déverrouiller l'app
                 document.getElementById('authOverlay').style.display = 'none';
                 document.getElementById('premiumApp').style.display = 'block';
