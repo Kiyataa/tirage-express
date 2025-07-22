@@ -120,15 +120,501 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
-        /* Application complète cachée par défaut */
-        #premiumApp {
-            display: none;
+        /* STYLES DE L'APPLICATION PREMIUM COMPLETE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+            min-height: 100vh;
+            padding: 15px;
             margin: 0;
-            padding: 0;
+            line-height: 1.6;
+            padding-top: 50px;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 25px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #e74c3c, rgba(255,255,255,0.3), #2c3e50);
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.1; }
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            min-height: 120px;
+        }
+        
+        .logo-image, .logo-svg {
+            height: 120px;
+            width: auto;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+            transition: all 0.3s ease;
+            background: transparent;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        
+        .header .tagline {
+            font-size: 1.2em;
+            opacity: 0.95;
+            font-weight: 400;
+            position: relative;
+            z-index: 1;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
+        .main-content {
+            padding: 35px 40px 25px 40px;
+        }
+        
+        .express-banner {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+        
+        select, textarea, input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            font-family: inherit;
+        }
+        
+        select:focus, textarea:focus, input:focus {
+            outline: none;
+            border-color: #2c3e50;
+            box-shadow: 0 0 0 4px rgba(44, 62, 80, 0.1);
+            background: white;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+        
+        .type-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+        
+        .type-btn {
+            flex: 1;
+            padding: 18px 16px;
+            border: 2px solid #e1e8ed;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 600;
+            color: #2c3e50;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .type-btn:hover {
+            border-color: #2c3e50;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(44, 62, 80, 0.15);
+        }
+        
+        .type-btn.active {
+            border-color: #2c3e50;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(44, 62, 80, 0.25);
+        }
+        
+        .type-btn .icon {
+            font-size: 1.8em;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 18px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 16px 20px;
+            border: none;
+            border-radius: 14px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+        }
+        
+        .btn-express {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            font-size: 1.2em;
+            padding: 18px 24px;
+            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+        
+        .player-management {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px solid #e1e8ed;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        
+        .player-management h3 {
+            color: #2c3e50;
+            margin-bottom: 18px;
+            text-align: center;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+        
+        .saved-players {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
+        .player-tag {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .player-tag:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(44, 62, 80, 0.3);
+        }
+        
+        .player-tag.selected {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            border-color: rgba(255,255,255,0.3);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        }
+        
+        .player-tag.inactive {
+            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+            opacity: 0.7;
+            transform: scale(0.95);
+        }
+        
+        .results {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: 2px solid #e1e8ed;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0 15px 0;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.08);
+        }
+        
+        .results h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 2.2em;
+            font-weight: 700;
+        }
+        
+        .summary {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid #e1e8ed;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        
+        .summary-item {
+            display: inline-block;
+            margin: 6px 12px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1em;
+            box-shadow: 0 4px 15px rgba(44, 62, 80, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .parties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        
+        .party {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e1e8ed;
+            animation: slideIn 0.5s ease-out;
+            transition: all 0.3s ease;
+        }
+        
+        .party h3 {
+            color: white;
+            margin-bottom: 16px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: 600;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            padding: 12px;
+            border-radius: 12px;
+            margin: -8px -8px 16px -8px;
+            box-shadow: 0 4px 15px rgba(44, 62, 80, 0.2);
+        }
+        
+        .teams {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .team {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 16px 20px;
+            border-radius: 14px;
+            margin: 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1em;
+            min-width: 140px;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.25);
+            transition: all 0.3s ease;
+        }
+        
+        .vs {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin: 0 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .reserve-players {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            border: 2px solid #ffa726;
+            padding: 20px;
+            border-radius: 16px;
+            margin-top: 16px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(255, 167, 38, 0.2);
+        }
+        
+        .error {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            border: 2px solid #f44336;
+            color: #c62828;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 16px 0;
+            text-align: center;
+            font-size: 1em;
+            font-weight: 500;
+        }
+        
+        .success {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            border: 2px solid #4caf50;
+            color: #2e7d32;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 16px 0;
+            text-align: center;
+            font-size: 1em;
+            font-weight: 500;
+        }
+        
+        .help-text {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border: 2px solid #2196f3;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 10px;
+            color: #1565c0;
+            font-size: 0.9em;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9em;
+        }
+        
+        .footer .logo-footer {
+            font-size: 1.2em;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #e74c3c;
+        }
+        
+        .footer a {
+            color: #e74c3c;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 800px) {
+            .main-content {
+                padding: 25px 20px 15px 20px;
+            }
+            
+            .parties-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .type-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .teams {
+                flex-direction: column;
+            }
+            
+            .summary-item {
+                display: block;
+                margin: 8px 0;
+            }
         }
     </style>
 </head>
@@ -165,40 +651,138 @@
         ⭐ TirageExpress Premium Active - Version Complete
     </div>
 
-    <!-- Application Premium (cachée par défaut) -->
+    <!-- Application Premium COMPLETE -->
     <div id="premiumApp" style="display: none;">
-        <h1>Application Premium Chargee !</h1>
-        <p>Felicitations ! Vous avez acces a TirageExpress Premium.</p>
+        <div class="container">
+            <div class="header">
+                <div class="logo-container">
+                    <img src="https://raw.githubusercontent.com/Kiyataa/tirageexpress-assets/main/Design%20sans%20titre.jpg" alt="TirageExpress" class="logo-image" 
+                         onerror="document.getElementById('fallback-logo').style.display='block'; this.style.display='none';"
+                         onload="this.style.display='block'; document.getElementById('fallback-logo').style.display='none';">
+                    
+                    <!-- Fallback SVG -->
+                    <svg id="fallback-logo" width="400" height="100" viewBox="0 0 400 100" class="logo-svg" style="display: none;">
+                        <defs>
+                            <radialGradient id="ballGradient" cx="30%" cy="30%">
+                                <stop offset="0%" stop-color="#c0392b"/>
+                                <stop offset="50%" stop-color="#8b1a1a"/>
+                                <stop offset="100%" stop-color="#7d1616"/>
+                            </radialGradient>
+                        </defs>
+                        <circle cx="50" cy="50" r="30" fill="url(#ballGradient)" stroke="#2c3e50" stroke-width="2"/>
+                        <circle cx="42" cy="38" r="6" fill="rgba(255,255,255,0.4)"/>
+                        <text x="90" y="45" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#2c3e50">TIRAGE</text>
+                        <text x="90" y="75" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#e74c3c">EXPRESS</text>
+                    </svg>
+                </div>
+                <p class="tagline">Le tirage de petanque en 30 secondes - Premium</p>
+            </div>
+            
+            <div class="main-content">
+                <div class="express-banner">
+                    Version Premium : Joueurs illimites • Tous types de parties • Sauvegarde permanente
+                </div>
+                
+                <div class="form-group">
+                    <label>Type de partie :</label>
+                    <div class="type-buttons">
+                        <div class="type-btn" data-type="tete-a-tete">
+                            <span class="icon">👤</span>
+                            Tete-a-tete<br>
+                            <small>(1 vs 1)</small>
+                        </div>
+                        <div class="type-btn active" data-type="doublette">
+                            <span class="icon">👥</span>
+                            Doublette<br>
+                            <small>(2 vs 2)</small>
+                        </div>
+                        <div class="type-btn" data-type="triplette">
+                            <span class="icon">👥👤</span>
+                            Triplette<br>
+                            <small>(3 vs 3)</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="player-management">
+                    <h3>👥 Base de donnees des joueurs - Premium</h3>
+                    <div class="form-group">
+                        <label for="nouveauxJoueurs">Ajouter des joueurs a la base :</label>
+                        <textarea id="nouveauxJoueurs" placeholder="Entrez les nouveaux noms, un par ligne :&#10;&#10;Pierre&#10;Marie&#10;Jean&#10;Sophie&#10;Paul&#10;Emma&#10;&#10;✅ Version Premium : Joueurs illimites !"></textarea>
+                        <div class="button-group">
+                            <button class="btn btn-success" onclick="ajouterJoueurs()">
+                                ➕ Ajouter a la base
+                            </button>
+                            <button class="btn btn-secondary" onclick="viderJoueurs()">
+                                🗑️ Vider la base
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="savedPlayersSection" style="display: none;">
+                        <label>Joueurs en base (cliquez pour selectionner pour aujourd'hui) :</label>
+                        <div id="savedPlayers" class="saved-players"></div>
+                        <div class="help-text">
+                            <strong>💡 Version Premium :</strong> Sauvegarde permanente automatique de tous vos joueurs. Aucune limitation !
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn btn-express" onclick="genererToutesLesParties()">
+                        ⚡ Tirage Express Premium - Illimite !
+                    </button>
+                    <button class="btn btn-warning" onclick="remettreJoueurs()">
+                        🔄 Selectionner tous
+                    </button>
+                    <button class="btn btn-secondary" onclick="deselectionnerTous()">
+                        ❌ Deselectionner tous
+                    </button>
+                </div>
+                
+                <div id="messageZone"></div>
+                
+                <div id="results" class="results" style="display: none;">
+                    <h2>🏆 Vos parties Express Premium</h2>
+                    <div id="resultsSummary" class="summary"></div>
+                    <div id="reserveSection" class="reserve-players" style="display: none;">
+                        <h4>⏳ Joueurs en reserve</h4>
+                        <p id="reserveList"></p>
+                    </div>
+                    <div id="partiesContainer" class="parties-grid"></div>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <div class="logo-footer">TirageExpress Premium</div>
+                <p>© 2025 TirageExpress - <a href="https://tirage-express.com">tirage-express.com</a></p>
+                <p>Joueurs illimites • Tous types de parties • Sauvegarde permanente</p>
+            </div>
+        </div>
     </div>
 
     <script>
+        // Variables globales
+        let typePartie = 'doublette';
+        let joueursDisponibles = [];
+        let joueursSelectionnes = [];
+        
+        // Codes Premium
         const premiumCodes = [
-            'PREMIUM2025A',
-            'PREMIUM2025B', 
-            'PREMIUM2025C',
-            'PREMIUM2025D',
-            'PREMIUM2025E',
-            'PREMIUM2025QFS857',
-            'PREMIUM2025R0V073',
+            'PREMIUM2025A', 'PREMIUM2025B', 'PREMIUM2025C', 'PREMIUM2025D', 'PREMIUM2025E',
+            'PREMIUM2025QFS857', 'PREMIUM2025R0V073'
         ];
         
         function verifyAccess() {
             const enteredCode = document.getElementById('accessCode').value.trim().toUpperCase();
             const errorDiv = document.getElementById('errorMessage');
             
-            console.log('🔍 Code teste:', enteredCode);
-            
-            // Codes fixes de base
-            const fixedCodes = [
-                'PREMIUM2025A', 'PREMIUM2025B', 'PREMIUM2025C', 'PREMIUM2025D', 'PREMIUM2025E'
-            ];
-            
-            // Pattern pour codes auto-générés
+            // Pattern pour codes auto-generes
             const autoPattern = /^PREMIUM2025[A-Z0-9]{3}[0-9]{3}$/;
             const proPattern = /^PRO2025[A-Z0-9]{3}[0-9]{3}$/;
             
             // Tests de validation
-            const isFixedCode = fixedCodes.includes(enteredCode);
+            const isFixedCode = premiumCodes.includes(enteredCode);
             const isAutoCode = autoPattern.test(enteredCode);
             const isProCode = proPattern.test(enteredCode);
             
@@ -214,32 +798,341 @@
                 sessionStorage.setItem('tirageexpress_premium', 'true');
                 sessionStorage.setItem('tirageexpress_code', enteredCode);
                 
+                // Initialiser l'application
+                initializeApp();
+                
             } else {
                 console.log('❌ ACCES REFUSE');
-                
                 errorDiv.style.display = 'block';
                 document.getElementById('accessCode').value = '';
                 document.getElementById('accessCode').focus();
             }
         }
         
-        // Permettre la validation avec Entrée
+        // Permettre la validation avec Entree
         document.getElementById('accessCode').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 verifyAccess();
             }
         });
         
-        // Vérifier si déjà connecté dans cette session
+        // Verifier si deja connecte
         window.addEventListener('load', function() {
             if (sessionStorage.getItem('tirageexpress_premium') === 'true') {
                 document.getElementById('authOverlay').style.display = 'none';
                 document.getElementById('premiumApp').style.display = 'block';
                 document.getElementById('premiumHeader').style.display = 'block';
+                initializeApp();
             }
         });
         
-        console.log('✅ Premium.html charge correctement - Version sans accents');
+        // Initialiser l'application Premium
+        function initializeApp() {
+            chargerDonnees();
+            afficherJoueurs();
+            console.log('✅ TirageExpress Premium initialise !');
+        }
+        
+        // Verifier localStorage
+        function isLocalStorageAvailable() {
+            try {
+                const test = '__test__';
+                localStorage.setItem(test, test);
+                localStorage.removeItem(test);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+        
+        // Sauvegarder donnees
+        function sauvegarderDonnees() {
+            const donnees = {
+                joueurs: joueursDisponibles,
+                typePartie: typePartie,
+                dateModification: new Date().toISOString(),
+                version: '3.0',
+                app: 'TirageExpress_Premium'
+            };
+            
+            try {
+                if (isLocalStorageAvailable()) {
+                    localStorage.setItem('tirageexpress_premium_data', JSON.stringify(donnees));
+                }
+            } catch (e) {
+                console.error('Erreur sauvegarde:', e);
+            }
+        }
+        
+        // Charger donnees
+        function chargerDonnees() {
+            try {
+                if (isLocalStorageAvailable()) {
+                    const donneesString = localStorage.getItem('tirageexpress_premium_data');
+                    if (donneesString) {
+                        const donnees = JSON.parse(donneesString);
+                        joueursDisponibles = donnees.joueurs || [];
+                        if (donnees.typePartie) {
+                            typePartie = donnees.typePartie;
+                            document.querySelectorAll('.type-btn').forEach(btn => {
+                                btn.classList.toggle('active', btn.dataset.type === typePartie);
+                            });
+                        }
+                        joueursSelectionnes = [...joueursDisponibles];
+                    }
+                }
+            } catch (e) {
+                console.error('Erreur chargement:', e);
+                joueursDisponibles = [];
+                joueursSelectionnes = [];
+            }
+        }
+        
+        // Gestion des boutons de type
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('type-btn')) {
+                document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                typePartie = e.target.dataset.type;
+                sauvegarderDonnees();
+            }
+        });
+        
+        // Ajouter joueurs
+        function ajouterJoueurs() {
+            const nouveauxJoueursTexte = document.getElementById('nouveauxJoueurs').value.trim();
+            if (!nouveauxJoueursTexte) {
+                afficherMessage('⚠️ Veuillez entrer au moins un nom de joueur.', 'error');
+                return;
+            }
+            
+            const nouveauxJoueurs = nouveauxJoueursTexte.split('\n')
+                .map(nom => nom.trim())
+                .filter(nom => nom)
+                .filter(nom => !joueursDisponibles.includes(nom));
+            
+            if (nouveauxJoueurs.length === 0) {
+                afficherMessage('⚠️ Tous ces joueurs sont deja dans la base Premium.', 'error');
+                return;
+            }
+            
+            joueursDisponibles.push(...nouveauxJoueurs);
+            joueursSelectionnes.push(...nouveauxJoueurs);
+            
+            document.getElementById('nouveauxJoueurs').value = '';
+            afficherJoueurs();
+            sauvegarderDonnees();
+            
+            afficherMessage(`✅ ${nouveauxJoueurs.length} joueur(s) ajoute(s) a Premium !`, 'success');
+        }
+        
+        // Afficher joueurs
+        function afficherJoueurs() {
+            const section = document.getElementById('savedPlayersSection');
+            const container = document.getElementById('savedPlayers');
+            
+            if (!section || !container) return;
+            
+            if (joueursDisponibles.length === 0) {
+                section.style.display = 'none';
+                return;
+            }
+            
+            section.style.display = 'block';
+            container.innerHTML = '';
+            
+            joueursDisponibles.forEach((joueur, index) => {
+                const tag = document.createElement('div');
+                tag.className = 'player-tag';
+                tag.textContent = joueur;
+                tag.tabIndex = 0;
+                
+                if (joueursSelectionnes.includes(joueur)) {
+                    tag.classList.add('selected');
+                } else {
+                    tag.classList.add('inactive');
+                }
+                
+                const togglePlayer = () => {
+                    if (joueursSelectionnes.includes(joueur)) {
+                        joueursSelectionnes = joueursSelectionnes.filter(j => j !== joueur);
+                        tag.classList.remove('selected');
+                        tag.classList.add('inactive');
+                    } else {
+                        joueursSelectionnes.push(joueur);
+                        tag.classList.add('selected');
+                        tag.classList.remove('inactive');
+                    }
+                };
+                
+                tag.addEventListener('click', togglePlayer);
+                tag.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        togglePlayer();
+                    }
+                });
+                
+                container.appendChild(tag);
+            });
+        }
+        
+        // Generer parties
+        function genererToutesLesParties() {
+            let tailleEquipe, joueursParPartie;
+            
+            if (typePartie === 'tete-a-tete') {
+                tailleEquipe = 1;
+                joueursParPartie = 2;
+            } else if (typePartie === 'doublette') {
+                tailleEquipe = 2;
+                joueursParPartie = 4;
+            } else {
+                tailleEquipe = 3;
+                joueursParPartie = 6;
+            }
+            
+            if (joueursSelectionnes.length < joueursParPartie) {
+                afficherMessage(`❌ Il faut minimum ${joueursParPartie} joueurs pour une ${typePartie}.`, 'error');
+                return;
+            }
+            
+            const startTime = Date.now();
+            const joueursMelanges = melanger([...joueursSelectionnes]);
+            
+            const parties = [];
+            const joueursReserve = [];
+            let compteurPartie = 1;
+            
+            for (let i = 0; i < joueursMelanges.length; i += joueursParPartie) {
+                if (i + joueursParPartie <= joueursMelanges.length) {
+                    const equipe1 = joueursMelanges.slice(i, i + tailleEquipe);
+                    const equipe2 = joueursMelanges.slice(i + tailleEquipe, i + joueursParPartie);
+                    
+                    parties.push({
+                        numero: compteurPartie,
+                        equipe1: equipe1,
+                        equipe2: equipe2
+                    });
+                    compteurPartie++;
+                } else {
+                    joueursReserve.push(...joueursMelanges.slice(i));
+                }
+            }
+            
+            const endTime = Date.now();
+            const tempsGeneration = (endTime - startTime) / 1000;
+            
+            afficherResultats(parties, joueursReserve);
+            
+            const joueursEnJeu = parties.length * joueursParPartie;
+            afficherMessage(`🎉 Premium : ${parties.length} partie(s) generee(s) en ${tempsGeneration.toFixed(1)}s !`, 'success');
+        }
+        
+        // Afficher resultats
+        function afficherResultats(parties, reserve) {
+            const section = document.getElementById('results');
+            const summary = document.getElementById('resultsSummary');
+            const reserveSection = document.getElementById('reserveSection');
+            const reserveList = document.getElementById('reserveList');
+            const container = document.getElementById('partiesContainer');
+            
+            if (!section || !summary || !container) return;
+            
+            let joueursParPartie;
+            if (typePartie === 'tete-a-tete') {
+                joueursParPartie = 2;
+            } else if (typePartie === 'doublette') {
+                joueursParPartie = 4;
+            } else {
+                joueursParPartie = 6;
+            }
+            
+            const joueursEnJeu = parties.length * joueursParPartie;
+            
+            summary.innerHTML = `
+                <div class="summary-item">👥 ${joueursSelectionnes.length} joueurs selectionnes</div>
+                <div class="summary-item">⚡ ${parties.length} parties Premium</div>
+                <div class="summary-item">⚽ ${joueursEnJeu} joueurs en jeu</div>
+                <div class="summary-item">⏳ ${reserve.length} en reserve</div>
+            `;
+            
+            if (reserve.length > 0 && reserveSection && reserveList) {
+                reserveSection.style.display = 'block';
+                reserveList.textContent = reserve.join(', ');
+            } else if (reserveSection) {
+                reserveSection.style.display = 'none';
+            }
+            
+            container.innerHTML = '';
+            parties.forEach((partie, index) => {
+                const div = document.createElement('div');
+                div.className = 'party';
+                
+                div.innerHTML = `
+                    <h3>Partie Premium ${partie.numero}</h3>
+                    <div class="teams">
+                        <div class="team">${partie.equipe1.join('<br>')}</div>
+                        <div class="vs">VS</div>
+                        <div class="team">${partie.equipe2.join('<br>')}</div>
+                    </div>
+                `;
+                
+                container.appendChild(div);
+            });
+            
+            section.style.display = 'block';
+            
+            setTimeout(() => {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }, 500);
+        }
+        
+        // Autres fonctions
+        function remettreJoueurs() {
+            joueursSelectionnes = [...joueursDisponibles];
+            afficherJoueurs();
+            afficherMessage('🔄 Tous les joueurs Premium selectionnes !', 'success');
+        }
+        
+        function deselectionnerTous() {
+            joueursSelectionnes = [];
+            afficherJoueurs();
+            afficherMessage('❌ Tous les joueurs deselectionnes !', 'success');
+        }
+        
+        function viderJoueurs() {
+            if (confirm('Supprimer tous les joueurs de la base Premium ?')) {
+                joueursDisponibles = [];
+                joueursSelectionnes = [];
+                const results = document.getElementById('results');
+                if (results) results.style.display = 'none';
+                afficherJoueurs();
+                sauvegarderDonnees();
+                afficherMessage('🗑️ Base Premium videe.', 'success');
+            }
+        }
+        
+        function afficherMessage(message, type) {
+            const zone = document.getElementById('messageZone');
+            if (zone) {
+                zone.innerHTML = `<div class="${type}">${message}</div>`;
+                setTimeout(() => {
+                    zone.innerHTML = '';
+                }, 5000);
+            }
+        }
+        
+        function melanger(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+        
+        console.log('✅ Premium.html charge - Version sans accents');
     </script>
 </body>
 </html>
