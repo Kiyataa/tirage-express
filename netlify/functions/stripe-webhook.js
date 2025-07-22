@@ -1,11 +1,11 @@
-// netlify/functions/stripe-webhook.js - VERSION CORRIGÉE
+// netlify/functions/stripe-webhook.js - VERSION AVEC VRAIES CLÉS
 
 exports.handler = async (event, context) => {
-  // Configuration
+  // Configuration avec les vraies clés EmailJS
   const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET;
-  const EMAILJS_SERVICE_ID = process.env.EMAILJS_SERVICE_ID || 'default_service';
-  const EMAILJS_TEMPLATE_ID = process.env.EMAILJS_TEMPLATE_ID || 'template_xxxxxx';
-  const EMAILJS_PUBLIC_KEY = process.env.EMAILJS_PUBLIC_KEY || 'votre_public_key';
+  const EMAILJS_SERVICE_ID = process.env.EMAILJS_SERVICE_ID || 'service_mdlk0r4';
+  const EMAILJS_TEMPLATE_ID = process.env.EMAILJS_TEMPLATE_ID || 'template_p0s3qi7';
+  const EMAILJS_PUBLIC_KEY = process.env.EMAILJS_PUBLIC_KEY || 'oD0JHZRYENBhOM8OB';
   
   // Vérification de la méthode HTTP
   if (event.httpMethod !== 'POST') {
@@ -150,7 +150,7 @@ exports.handler = async (event, context) => {
     return code;
   }
 
-  // ⚡ FONCTION EMAIL CORRIGÉE - Utilisation de l'API EmailJS REST
+  // ⚡ FONCTION EMAIL CORRIGÉE avec les vraies clés EmailJS
   async function sendWelcomeEmail({ customerEmail, customerName, productType, activationCode, amount }) {
     try {
       console.log('📤 Tentative d\'envoi email...');
@@ -170,15 +170,20 @@ exports.handler = async (event, context) => {
           : 'https://tirage-express.netlify.app/premium.html'
       };
       
-      // Payload pour EmailJS REST API
+      // Payload pour EmailJS REST API avec les vraies clés
       const emailPayload = {
-        service_id: EMAILJS_SERVICE_ID,
-        template_id: EMAILJS_TEMPLATE_ID,
-        user_id: EMAILJS_PUBLIC_KEY,
+        service_id: EMAILJS_SERVICE_ID,    // service_mdlk0r4
+        template_id: EMAILJS_TEMPLATE_ID,  // template_p0s3qi7
+        user_id: EMAILJS_PUBLIC_KEY,       // oD0JHZRYENBhOM8OB
         template_params: templateParams
       };
       
       console.log('📋 Template params:', templateParams);
+      console.log('📬 EmailJS Config:', {
+        service_id: EMAILJS_SERVICE_ID,
+        template_id: EMAILJS_TEMPLATE_ID,
+        user_id: EMAILJS_PUBLIC_KEY
+      });
       
       // Appel à l'API EmailJS
       const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
