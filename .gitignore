@@ -1,0 +1,17 @@
+# Fichiers de configuration sensibles
+stripe-config.php
+.env
+config.php
+webhook-stripe.php
+
+# Clés et secrets  
+*.key
+*.secret
+
+# Logs
+*.log
+tirageexpress-codes.log
+
+# Fichiers système
+.DS_Store
+Thumbs.db
