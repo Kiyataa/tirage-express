@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Métadonnées Premium -->
-    <title>TirageExpress Premium - Application Complete</title>
-    <meta name="description" content="TirageExpress Premium : Application complete avec joueurs illimites, tous types de parties, sauvegarde et export PDF.">
+    <title>TirageExpress Premium - Application Complète</title>
+    <meta name="description" content="TirageExpress Premium : Application complète avec joueurs illimités, tous types de parties, sauvegarde et export PDF.">
     <meta name="robots" content="noindex, nofollow">
     
     <!-- EN-TÊTES ANTI-CACHE -->
@@ -120,7 +120,7 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
-        /* STYLES DE L'APPLICATION PREMIUM COMPLETE */
+        /* STYLES DE L'APPLICATION PREMIUM */
         * {
             margin: 0;
             padding: 0;
@@ -557,34 +557,19 @@
             border: 2px solid #e1e8ed;
         }
         
-        .benefice-info {
-            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
-            border: 2px solid #27ae60;
-            padding: 20px;
-            border-radius: 16px;
-            margin-top: 16px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.2);
-        }
-        
-        .benefice-info h4 {
-            color: #2e7d32;
-            margin-bottom: 12px;
-            font-size: 1.2em;
-            font-weight: 600;
-        }
-        
-        .benefice-info .montant {
-            font-size: 2em;
-            font-weight: 700;
-            color: #2e7d32;
-            margin: 10px 0;
-        }
-        
-        .benefice-info .details {
-            color: #2e7d32;
+        .help-text {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border: 2px solid #2196f3;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 10px;
+            color: #1565c0;
             font-size: 0.9em;
-            font-weight: 500;
+            box-shadow: 0 2px 10px rgba(33, 150, 243, 0.15);
+        }
+        
+        .help-text strong {
+            color: #0d47a1;
         }
         
         .footer {
@@ -617,6 +602,50 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 800px) {
+            body {
+                padding: 10px;
+                padding-top: 50px;
+            }
+            
+            .main-content {
+                padding: 25px 20px 15px 20px;
+            }
+            
+            .parties-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .type-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .teams {
+                flex-direction: column;
+            }
+            
+            .vs {
+                margin: 8px 0;
+                font-size: 1.5em;
+            }
+            
+            .summary-item {
+                display: block;
+                margin: 8px 0;
+            }
+            
+            .results-actions {
+                flex-direction: column;
             }
         }
         
@@ -665,23 +694,6 @@
                 padding-bottom: 8px !important;
             }
             
-            .summary {
-                background: #f8f9fa !important;
-                border: 1px solid #000 !important;
-                page-break-inside: avoid !important;
-                margin-bottom: 15px !important;
-                font-size: 0.9em !important;
-            }
-            
-            .summary-item {
-                background: #e9ecef !important;
-                color: #000 !important;
-                border: 1px solid #666 !important;
-                margin: 3px !important;
-                font-size: 0.8em !important;
-                padding: 8px 12px !important;
-            }
-            
             .party {
                 background: white !important;
                 border: 2px solid #000 !important;
@@ -713,50 +725,6 @@
                 font-size: 1.2em !important;
                 font-weight: bold !important;
             }
-            
-            .reserve-players {
-                background: #fff3cd !important;
-                border: 2px solid #000 !important;
-                color: #000 !important;
-                page-break-inside: avoid !important;
-                font-size: 0.9em !important;
-            }
-            
-            .benefice-info {
-                background: #d4edda !important;
-                border: 2px solid #000 !important;
-                color: #000 !important;
-                page-break-inside: avoid !important;
-                font-size: 0.9em !important;
-            }
-            
-            .benefice-info h4 {
-                color: #000 !important;
-                font-size: 1em !important;
-            }
-            
-            .benefice-info .montant {
-                color: #000 !important;
-                font-size: 1.5em !important;
-            }
-            
-            .benefice-info .details {
-                color: #000 !important;
-                font-size: 0.8em !important;
-            }
-            
-            /* Informations de tirage en pied de page */
-            .results::after {
-                content: "TirageExpress Premium - Benefice : 1€ par joueur - Genere le " attr(data-date) " a " attr(data-time);
-                display: block;
-                text-align: center;
-                font-size: 0.7em;
-                color: #666;
-                margin-top: 20px;
-                padding-top: 15px;
-                border-top: 1px solid #ccc;
-                page-break-inside: avoid;
-            }
         }
     </style>
 </head>
@@ -765,20 +733,20 @@
     <div id="authOverlay" class="auth-overlay">
         <div class="auth-container">
             <div class="premium-badge">⭐ TirageExpress Premium</div>
-            <h2>Acces Reserve aux Clients</h2>
+            <h2>Accès Réservé aux Clients</h2>
             <p>
-                Vous avez achete TirageExpress Premium ? 
-                Entrez votre code d'activation recu par email.
+                Vous avez acheté TirageExpress Premium ? 
+                Entrez votre code d'activation reçu par email.
             </p>
             
             <input type="password" id="accessCode" class="auth-input" placeholder="Code d'activation Premium" maxlength="17">
             
             <div>
-                <button class="auth-btn" onclick="verifyAccess()">🚀 Acceder a Premium</button>
+                <button class="auth-btn" onclick="verifyAccess()">🚀 Accéder à Premium</button>
             </div>
             
             <div class="error-message" id="errorMessage">
-                ❌ Code incorrect. Verifiez votre email ou contactez le support.
+                ❌ Code incorrect. Vérifiez votre email ou contactez le support.
             </div>
             
             <p style="margin-top: 30px; font-size: 0.9em; color: #95a5a6;">
@@ -790,10 +758,10 @@
 
     <!-- Badge Premium discret -->
     <div id="premiumHeader" class="premium-header" style="display: none;">
-        ⭐ TirageExpress Premium Active - Version Complete
+        ⭐ TirageExpress Premium Activé - Version Complète
     </div>
 
-    <!-- Application Premium COMPLETE -->
+    <!-- Application Premium -->
     <div id="premiumApp" style="display: none;">
         <div class="container">
             <div class="header">
@@ -817,12 +785,12 @@
                         <text x="90" y="75" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#e74c3c">EXPRESS</text>
                     </svg>
                 </div>
-                <p class="tagline">Le tirage de petanque en 30 secondes - Premium</p>
+                <p class="tagline">Le tirage de pétanque en 30 secondes - Premium</p>
             </div>
             
             <div class="main-content">
                 <div class="express-banner">
-                    Version Premium : Joueurs illimites • Tous types de parties • Sauvegarde permanente
+                    Version Premium : Joueurs illimités • Tous types de parties • Sauvegarde permanente
                 </div>
                 
                 <div class="form-group">
@@ -830,7 +798,7 @@
                     <div class="type-buttons">
                         <div class="type-btn" data-type="tete-a-tete">
                             <span class="icon">👤</span>
-                            Tete-a-tete<br>
+                            Tête-à-tête<br>
                             <small>(1 vs 1)</small>
                         </div>
                         <div class="type-btn active" data-type="doublette">
@@ -847,13 +815,13 @@
                 </div>
                 
                 <div class="player-management">
-                    <h3>👥 Base de donnees des joueurs - Premium</h3>
+                    <h3>👥 Base de données des joueurs - Premium</h3>
                     <div class="form-group">
-                        <label for="nouveauxJoueurs">Ajouter des joueurs a la base :</label>
-                        <textarea id="nouveauxJoueurs" placeholder="Entrez les nouveaux noms, un par ligne :&#10;&#10;Pierre&#10;Marie&#10;Jean&#10;Sophie&#10;Paul&#10;Emma&#10;&#10;✅ Version Premium : Joueurs illimites !"></textarea>
+                        <label for="nouveauxJoueurs">Ajouter des joueurs à la base :</label>
+                        <textarea id="nouveauxJoueurs" placeholder="Entrez les nouveaux noms, un par ligne :&#10;&#10;Pierre&#10;Marie&#10;Jean&#10;Sophie&#10;Paul&#10;Emma&#10;&#10;✅ Version Premium : Joueurs illimités !"></textarea>
                         <div class="button-group">
                             <button class="btn btn-success" onclick="ajouterJoueurs()">
-                                ➕ Ajouter a la base
+                                ➕ Ajouter à la base
                             </button>
                             <button class="btn btn-secondary" onclick="viderJoueurs()">
                                 🗑️ Vider la base
@@ -862,7 +830,7 @@
                     </div>
                     
                     <div id="savedPlayersSection" style="display: none;">
-                        <label>Joueurs en base (cliquez pour selectionner pour aujourd'hui) :</label>
+                        <label>Joueurs en base (cliquez pour sélectionner pour aujourd'hui) :</label>
                         <div id="savedPlayers" class="saved-players"></div>
                         <div class="help-text">
                             <strong>💡 Version Premium :</strong> Sauvegarde permanente automatique de tous vos joueurs. Aucune limitation !
@@ -872,13 +840,13 @@
                 
                 <div class="button-group">
                     <button class="btn btn-express" onclick="genererToutesLesParties()">
-                        ⚡ Tirage Express Premium - Illimite !
+                        ⚡ Tirage Express Premium - Illimité !
                     </button>
                     <button class="btn btn-warning" onclick="remettreJoueurs()">
-                        🔄 Selectionner tous
+                        🔄 Sélectionner tous
                     </button>
                     <button class="btn btn-secondary" onclick="deselectionnerTous()">
-                        ❌ Deselectionner tous
+                        ❌ Désélectionner tous
                     </button>
                 </div>
                 
@@ -888,7 +856,7 @@
                     <h2>🏆 Vos parties Express Premium</h2>
                     <div id="resultsSummary" class="summary"></div>
                     <div id="reserveSection" class="reserve-players" style="display: none;">
-                        <h4>⏳ Joueurs en reserve</h4>
+                        <h4>⏳ Joueurs en réserve</h4>
                         <p id="reserveList"></p>
                     </div>
                     <div id="partiesContainer" class="parties-grid"></div>
@@ -908,7 +876,7 @@
             <div class="footer">
                 <div class="logo-footer">TirageExpress Premium</div>
                 <p>© 2025 TirageExpress - <a href="https://tirage-express.com">tirage-express.com</a></p>
-                <p>Joueurs illimites • Tous types de parties • Sauvegarde permanente</p>
+                <p>Joueurs illimités • Tous types de parties • Sauvegarde permanente</p>
             </div>
         </div>
     </div>
@@ -929,7 +897,7 @@
             const enteredCode = document.getElementById('accessCode').value.trim().toUpperCase();
             const errorDiv = document.getElementById('errorMessage');
             
-            // Pattern pour codes auto-generes
+            // Pattern pour codes auto-générés
             const autoPattern = /^PREMIUM2025[A-Z0-9]{3}[0-9]{3}$/;
             const proPattern = /^PRO2025[A-Z0-9]{3}[0-9]{3}$/;
             
@@ -939,7 +907,7 @@
             const isProCode = proPattern.test(enteredCode);
             
             if (isFixedCode || isAutoCode || isProCode) {
-                console.log('🎉 ACCES ACCORDE !');
+                console.log('🎉 ACCÈS ACCORDÉ !');
                 
                 // Cacher l'overlay et afficher l'app
                 document.getElementById('authOverlay').style.display = 'none';
@@ -954,21 +922,21 @@
                 initializeApp();
                 
             } else {
-                console.log('❌ ACCES REFUSE');
+                console.log('❌ ACCÈS REFUSÉ');
                 errorDiv.style.display = 'block';
                 document.getElementById('accessCode').value = '';
                 document.getElementById('accessCode').focus();
             }
         }
         
-        // Permettre la validation avec Entree
+        // Permettre la validation avec Entrée
         document.getElementById('accessCode').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 verifyAccess();
             }
         });
         
-        // Verifier si deja connecte
+        // Vérifier si déjà connecté
         window.addEventListener('load', function() {
             if (sessionStorage.getItem('tirageexpress_premium') === 'true') {
                 document.getElementById('authOverlay').style.display = 'none';
@@ -982,10 +950,10 @@
         function initializeApp() {
             chargerDonnees();
             afficherJoueurs();
-            console.log('✅ TirageExpress Premium initialise !');
+            console.log('✅ TirageExpress Premium initialisé !');
         }
         
-        // Verifier localStorage
+        // Vérifier localStorage
         function isLocalStorageAvailable() {
             try {
                 const test = '__test__';
@@ -997,7 +965,7 @@
             }
         }
         
-        // Sauvegarder donnees
+        // Sauvegarder données
         function sauvegarderDonnees() {
             const donnees = {
                 joueurs: joueursDisponibles,
@@ -1016,7 +984,7 @@
             }
         }
         
-        // Charger donnees
+        // Charger données
         function chargerDonnees() {
             try {
                 if (isLocalStorageAvailable()) {
@@ -1064,7 +1032,7 @@
                 .filter(nom => !joueursDisponibles.includes(nom));
             
             if (nouveauxJoueurs.length === 0) {
-                afficherMessage('⚠️ Tous ces joueurs sont deja dans la base Premium.', 'error');
+                afficherMessage('⚠️ Tous ces joueurs sont déjà dans la base Premium.', 'error');
                 return;
             }
             
@@ -1075,7 +1043,7 @@
             afficherJoueurs();
             sauvegarderDonnees();
             
-            afficherMessage(`✅ ${nouveauxJoueurs.length} joueur(s) ajoute(s) a Premium !`, 'success');
+            afficherMessage(`✅ ${nouveauxJoueurs.length} joueur(s) ajouté(s) à Premium !`, 'success');
         }
         
         // Afficher joueurs
@@ -1129,7 +1097,7 @@
             });
         }
         
-        // Generer parties
+        // Générer parties
         function genererToutesLesParties() {
             let tailleEquipe, joueursParPartie;
             
@@ -1178,10 +1146,10 @@
             afficherResultats(parties, joueursReserve);
             
             const joueursEnJeu = parties.length * joueursParPartie;
-            afficherMessage(`🎉 Premium : ${parties.length} partie(s) generee(s) en ${tempsGeneration.toFixed(1)}s !`, 'success');
+            afficherMessage(`🎉 Premium : ${parties.length} partie(s) générée(s) en ${tempsGeneration.toFixed(1)}s !`, 'success');
         }
         
-        // Afficher resultats avec calcul des benefices
+        // Afficher résultats SANS calculs de bénéfices
         function afficherResultats(parties, reserve) {
             const section = document.getElementById('results');
             const summary = document.getElementById('resultsSummary');
@@ -1201,14 +1169,13 @@
             }
             
             const joueursEnJeu = parties.length * joueursParPartie;
-            const beneficeTotal = joueursEnJeu * 1; // 1€ par joueur
             
+            // Résumé SANS bénéfices
             summary.innerHTML = `
-                <div class="summary-item">👥 ${joueursSelectionnes.length} joueurs selectionnes</div>
+                <div class="summary-item">👥 ${joueursSelectionnes.length} joueurs sélectionnés</div>
                 <div class="summary-item">⚡ ${parties.length} parties Premium</div>
                 <div class="summary-item">⚽ ${joueursEnJeu} joueurs en jeu</div>
-                <div class="summary-item">⏳ ${reserve.length} en reserve</div>
-                <div class="summary-item" style="background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);">💰 ${beneficeTotal}€ de benefice</div>
+                <div class="summary-item">⏳ ${reserve.length} en réserve</div>
             `;
             
             if (reserve.length > 0 && reserveSection && reserveList) {
@@ -1217,18 +1184,6 @@
             } else if (reserveSection) {
                 reserveSection.style.display = 'none';
             }
-            
-            // Afficher les détails des bénéfices
-            const beneficeDiv = document.createElement('div');
-            beneficeDiv.className = 'benefice-info';
-            beneficeDiv.innerHTML = `
-                <h4>💰 Calcul des benefices</h4>
-                <div class="montant">${beneficeTotal}€</div>
-                <div class="details">
-                    ${joueursEnJeu} joueurs en jeu × 1€ = ${beneficeTotal}€<br>
-                    ${reserve.length} joueur(s) en reserve (gratuit)
-                </div>
-            `;
             
             container.innerHTML = '';
             parties.forEach((partie, index) => {
@@ -1247,9 +1202,6 @@
                 container.appendChild(div);
             });
             
-            // Ajouter l'info bénéfice après les parties
-            container.appendChild(beneficeDiv);
-            
             section.style.display = 'block';
             
             // Afficher les boutons d'actions
@@ -1257,11 +1209,6 @@
             if (resultsActions) {
                 resultsActions.style.display = 'flex';
             }
-            
-            // Ajouter les métadonnées pour l'impression
-            const maintenant = new Date();
-            section.setAttribute('data-date', maintenant.toLocaleDateString('fr-FR'));
-            section.setAttribute('data-time', maintenant.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }));
             
             setTimeout(() => {
                 section.scrollIntoView({ behavior: 'smooth' });
@@ -1272,7 +1219,7 @@
         function imprimerTirage() {
             const resultsSection = document.getElementById('results');
             if (!resultsSection || resultsSection.style.display === 'none') {
-                afficherMessage('❌ Aucun tirage a imprimer. Generez d\'abord un tirage.', 'error');
+                afficherMessage('❌ Aucun tirage à imprimer. Générez d\'abord un tirage.', 'error');
                 return;
             }
             
@@ -1307,14 +1254,14 @@
                 });
             }, 1000);
             
-            afficherMessage('🖨️ Impression lancee !', 'success');
+            afficherMessage('🖨️ Impression lancée !', 'success');
         }
         
-        // Fonction de copie du tirage
+        // Fonction de copie du tirage SANS bénéfices
         function copierTirage() {
             const resultsSection = document.getElementById('results');
             if (!resultsSection || resultsSection.style.display === 'none') {
-                afficherMessage('❌ Aucun tirage a copier. Generez d\'abord un tirage.', 'error');
+                afficherMessage('❌ Aucun tirage à copier. Générez d\'abord un tirage.', 'error');
                 return;
             }
             
@@ -1322,17 +1269,15 @@
             const totalParties = document.querySelectorAll('.party').length;
             const totalJoueurs = joueursSelectionnes.length;
             const joueursEnJeu = totalJoueurs - (document.getElementById('reserveList')?.textContent?.split(',').length || 0);
-            const benefice = joueursEnJeu * 1;
             
-            let textePartage = `🏆 TirageExpress Premium - Tirage genere\n\n`;
-            textePartage += `📊 Resume :\n`;
+            let textePartage = `🏆 TirageExpress Premium - Tirage généré\n\n`;
+            textePartage += `📊 Résumé :\n`;
             textePartage += `• ${totalParties} partie(s) - ${totalJoueurs} joueurs\n`;
-            textePartage += `• ${joueursEnJeu} joueurs en jeu\n`;
-            textePartage += `• Benefice : ${benefice}€ (1€ par joueur)\n\n`;
+            textePartage += `• ${joueursEnJeu} joueurs en jeu\n\n`;
             
             const joueursReserve = document.getElementById('reserveList')?.textContent;
             if (joueursReserve) {
-                textePartage += `⏳ Reserve : ${joueursReserve}\n\n`;
+                textePartage += `⏳ Réserve : ${joueursReserve}\n\n`;
             }
             
             textePartage += `🎯 Parties :\n`;
@@ -1347,14 +1292,13 @@
             });
             
             const maintenant = new Date();
-            textePartage += `\n💰 Benefice total : ${benefice}€\n`;
-            textePartage += `📅 Genere le ${maintenant.toLocaleDateString('fr-FR')} a ${maintenant.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}\n`;
-            textePartage += `\n⚡ Genere par TirageExpress Premium`;
+            textePartage += `\n📅 Généré le ${maintenant.toLocaleDateString('fr-FR')} à ${maintenant.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}\n`;
+            textePartage += `\n⚡ Généré par TirageExpress Premium`;
             
             // Copier dans le clipboard
             if (navigator.clipboard) {
                 navigator.clipboard.writeText(textePartage).then(() => {
-                    afficherMessage('📋 Tirage copie dans le presse-papiers !', 'success');
+                    afficherMessage('📋 Tirage copié dans le presse-papiers !', 'success');
                 }).catch(() => {
                     fallbackCopy(textePartage);
                 });
@@ -1371,9 +1315,9 @@
             textarea.select();
             try {
                 document.execCommand('copy');
-                afficherMessage('📋 Tirage copie dans le presse-papiers !', 'success');
+                afficherMessage('📋 Tirage copié dans le presse-papiers !', 'success');
             } catch (err) {
-                afficherMessage('❌ Impossible de copier. Selectionnez manuellement le texte.', 'error');
+                afficherMessage('❌ Impossible de copier. Sélectionnez manuellement le texte.', 'error');
             }
             document.body.removeChild(textarea);
         }
@@ -1382,13 +1326,13 @@
         function remettreJoueurs() {
             joueursSelectionnes = [...joueursDisponibles];
             afficherJoueurs();
-            afficherMessage('🔄 Tous les joueurs Premium selectionnes !', 'success');
+            afficherMessage('🔄 Tous les joueurs Premium sélectionnés !', 'success');
         }
         
         function deselectionnerTous() {
             joueursSelectionnes = [];
             afficherJoueurs();
-            afficherMessage('❌ Tous les joueurs deselectionnes !', 'success');
+            afficherMessage('❌ Tous les joueurs désélectionnés !', 'success');
         }
         
         function viderJoueurs() {
@@ -1399,7 +1343,7 @@
                 if (results) results.style.display = 'none';
                 afficherJoueurs();
                 sauvegarderDonnees();
-                afficherMessage('🗑️ Base Premium videe.', 'success');
+                afficherMessage('🗑️ Base Premium vidée.', 'success');
             }
         }
         
@@ -1422,7 +1366,7 @@
             return arr;
         }
         
-        console.log('✅ Premium.html charge - Version sans accents');
+        console.log('✅ TirageExpress Premium Standard 49€/an chargé');
     </script>
 </body>
 </html>
