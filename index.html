@@ -1015,5 +1015,15 @@
             console.log('📈 Page chargée en ' + loadTime + 'ms');
         });
     </script>
+    <!-- Formulaire caché pour Netlify Forms - À ajouter dans index.html avant </body> -->
+<form name="tirageexpress-premium-email" netlify netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="tirageexpress-premium-email">
+    <input type="text" name="bot-field">
+    <input type="email" name="email">
+    <input type="text" name="name">
+    <input type="text" name="code">
+    <input type="text" name="subject">
+    <textarea name="html-content"></textarea>
+</form>
 </body>
 </html>
