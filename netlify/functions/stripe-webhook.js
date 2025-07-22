@@ -241,11 +241,11 @@ exports.handler = async (event, context) => {
       const msg = {
         to: customerEmail,
         from: {
-          email: 'tirageexpress.auto@gmail.com',
+          email: 'contact@tirage-express.com',
           name: 'TirageExpress'
         },
         reply_to: {
-          email: 'contact@tirage-express.com',
+          email: 'tirageexpress.auto@gmail.com',
           name: 'TirageExpress Support'
         },
         subject: `🎉 Bienvenue dans TirageExpress ${productType} !`,
