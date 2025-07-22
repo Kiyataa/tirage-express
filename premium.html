@@ -545,14 +545,46 @@
             font-weight: 500;
         }
         
-        .help-text {
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-            border: 2px solid #2196f3;
-            padding: 15px;
-            border-radius: 12px;
-            margin-top: 10px;
-            color: #1565c0;
+        /* Styles pour les actions des résultats */
+        .results-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            border: 2px solid #e1e8ed;
+        }
+        
+        .benefice-info {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            border: 2px solid #27ae60;
+            padding: 20px;
+            border-radius: 16px;
+            margin-top: 16px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.2);
+        }
+        
+        .benefice-info h4 {
+            color: #2e7d32;
+            margin-bottom: 12px;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        
+        .benefice-info .montant {
+            font-size: 2em;
+            font-weight: 700;
+            color: #2e7d32;
+            margin: 10px 0;
+        }
+        
+        .benefice-info .details {
+            color: #2e7d32;
             font-size: 0.9em;
+            font-weight: 500;
         }
         
         .footer {
@@ -588,32 +620,142 @@
             }
         }
         
-        @media (max-width: 800px) {
-            .main-content {
-                padding: 25px 20px 15px 20px;
+        /* Styles d'impression optimisés */
+        @media print {
+            .header,
+            .player-management,
+            .button-group,
+            .express-banner,
+            .premium-header,
+            .auth-overlay,
+            .results-actions,
+            .footer,
+            [data-print-hidden="true"] {
+                display: none !important;
             }
             
-            .parties-grid {
-                grid-template-columns: 1fr;
+            body {
+                background: white !important;
+                padding: 0 !important;
+                font-size: 12px !important;
             }
             
-            .type-buttons {
-                flex-direction: column;
-                gap: 10px;
+            .container {
+                background: white !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                margin: 0 !important;
+                max-width: 100% !important;
             }
             
-            .button-group {
-                flex-direction: column;
-                gap: 10px;
+            .results {
+                box-shadow: none !important;
+                border: none !important;
+                background: white !important;
+                padding: 10px !important;
+                margin: 0 !important;
             }
             
-            .teams {
-                flex-direction: column;
+            .results h2 {
+                color: #000 !important;
+                font-size: 1.5em !important;
+                margin-bottom: 15px !important;
+                text-align: center !important;
+                border-bottom: 2px solid #000 !important;
+                padding-bottom: 8px !important;
+            }
+            
+            .summary {
+                background: #f8f9fa !important;
+                border: 1px solid #000 !important;
+                page-break-inside: avoid !important;
+                margin-bottom: 15px !important;
+                font-size: 0.9em !important;
             }
             
             .summary-item {
+                background: #e9ecef !important;
+                color: #000 !important;
+                border: 1px solid #666 !important;
+                margin: 3px !important;
+                font-size: 0.8em !important;
+                padding: 8px 12px !important;
+            }
+            
+            .party {
+                background: white !important;
+                border: 2px solid #000 !important;
+                box-shadow: none !important;
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+                margin-bottom: 10px !important;
+                font-size: 0.9em !important;
+            }
+            
+            .party h3 {
+                background: #000 !important;
+                color: white !important;
+                font-size: 1em !important;
+                padding: 8px !important;
+            }
+            
+            .team {
+                background: #f8f9fa !important;
+                color: #000 !important;
+                border: 1px solid #000 !important;
+                font-weight: bold !important;
+                font-size: 0.9em !important;
+                padding: 10px !important;
+            }
+            
+            .vs {
+                color: #000 !important;
+                font-size: 1.2em !important;
+                font-weight: bold !important;
+            }
+            
+            .reserve-players {
+                background: #fff3cd !important;
+                border: 2px solid #000 !important;
+                color: #000 !important;
+                page-break-inside: avoid !important;
+                font-size: 0.9em !important;
+            }
+            
+            .benefice-info {
+                background: #d4edda !important;
+                border: 2px solid #000 !important;
+                color: #000 !important;
+                page-break-inside: avoid !important;
+                font-size: 0.9em !important;
+            }
+            
+            .benefice-info h4 {
+                color: #000 !important;
+                font-size: 1em !important;
+            }
+            
+            .benefice-info .montant {
+                color: #000 !important;
+                font-size: 1.5em !important;
+            }
+            
+            .benefice-info .details {
+                color: #000 !important;
+                font-size: 0.8em !important;
+            }
+            
+            /* Informations de tirage en pied de page */
+            .results::after {
+                content: "TirageExpress Premium - Benefice : 1€ par joueur - Genere le " attr(data-date) " a " attr(data-time);
                 display: block;
-                margin: 8px 0;
+                text-align: center;
+                font-size: 0.7em;
+                color: #666;
+                margin-top: 20px;
+                padding-top: 15px;
+                border-top: 1px solid #ccc;
+                page-break-inside: avoid;
             }
         }
     </style>
@@ -750,6 +892,16 @@
                         <p id="reserveList"></p>
                     </div>
                     <div id="partiesContainer" class="parties-grid"></div>
+                    
+                    <!-- Actions pour les résultats -->
+                    <div id="resultsActions" class="results-actions" style="display: none;">
+                        <button class="btn btn-primary" onclick="imprimerTirage()">
+                            🖨️ Imprimer le tirage
+                        </button>
+                        <button class="btn btn-success" onclick="copierTirage()">
+                            📋 Copier le tirage
+                        </button>
+                    </div>
                 </div>
             </div>
             
@@ -1029,7 +1181,7 @@
             afficherMessage(`🎉 Premium : ${parties.length} partie(s) generee(s) en ${tempsGeneration.toFixed(1)}s !`, 'success');
         }
         
-        // Afficher resultats
+        // Afficher resultats avec calcul des benefices
         function afficherResultats(parties, reserve) {
             const section = document.getElementById('results');
             const summary = document.getElementById('resultsSummary');
@@ -1049,12 +1201,14 @@
             }
             
             const joueursEnJeu = parties.length * joueursParPartie;
+            const beneficeTotal = joueursEnJeu * 1; // 1€ par joueur
             
             summary.innerHTML = `
                 <div class="summary-item">👥 ${joueursSelectionnes.length} joueurs selectionnes</div>
                 <div class="summary-item">⚡ ${parties.length} parties Premium</div>
                 <div class="summary-item">⚽ ${joueursEnJeu} joueurs en jeu</div>
                 <div class="summary-item">⏳ ${reserve.length} en reserve</div>
+                <div class="summary-item" style="background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);">💰 ${beneficeTotal}€ de benefice</div>
             `;
             
             if (reserve.length > 0 && reserveSection && reserveList) {
@@ -1063,6 +1217,18 @@
             } else if (reserveSection) {
                 reserveSection.style.display = 'none';
             }
+            
+            // Afficher les détails des bénéfices
+            const beneficeDiv = document.createElement('div');
+            beneficeDiv.className = 'benefice-info';
+            beneficeDiv.innerHTML = `
+                <h4>💰 Calcul des benefices</h4>
+                <div class="montant">${beneficeTotal}€</div>
+                <div class="details">
+                    ${joueursEnJeu} joueurs en jeu × 1€ = ${beneficeTotal}€<br>
+                    ${reserve.length} joueur(s) en reserve (gratuit)
+                </div>
+            `;
             
             container.innerHTML = '';
             parties.forEach((partie, index) => {
@@ -1081,11 +1247,135 @@
                 container.appendChild(div);
             });
             
+            // Ajouter l'info bénéfice après les parties
+            container.appendChild(beneficeDiv);
+            
             section.style.display = 'block';
+            
+            // Afficher les boutons d'actions
+            const resultsActions = document.getElementById('resultsActions');
+            if (resultsActions) {
+                resultsActions.style.display = 'flex';
+            }
+            
+            // Ajouter les métadonnées pour l'impression
+            const maintenant = new Date();
+            section.setAttribute('data-date', maintenant.toLocaleDateString('fr-FR'));
+            section.setAttribute('data-time', maintenant.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }));
             
             setTimeout(() => {
                 section.scrollIntoView({ behavior: 'smooth' });
             }, 500);
+        }
+        
+        // Fonction d'impression
+        function imprimerTirage() {
+            const resultsSection = document.getElementById('results');
+            if (!resultsSection || resultsSection.style.display === 'none') {
+                afficherMessage('❌ Aucun tirage a imprimer. Generez d\'abord un tirage.', 'error');
+                return;
+            }
+            
+            // Préparer l'impression
+            const originalTitle = document.title;
+            document.title = 'TirageExpress Premium - Tirage';
+            
+            // Masquer temporairement les éléments non imprimables
+            const elementsToHide = [
+                'premiumHeader', 'express-banner', 'player-management', 
+                'button-group', 'messageZone', 'resultsActions'
+            ];
+            
+            elementsToHide.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.setAttribute('data-print-hidden', 'true');
+                }
+            });
+            
+            // Déclencher l'impression
+            window.print();
+            
+            // Restaurer après impression
+            setTimeout(() => {
+                document.title = originalTitle;
+                elementsToHide.forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.removeAttribute('data-print-hidden');
+                    }
+                });
+            }, 1000);
+            
+            afficherMessage('🖨️ Impression lancee !', 'success');
+        }
+        
+        // Fonction de copie du tirage
+        function copierTirage() {
+            const resultsSection = document.getElementById('results');
+            if (!resultsSection || resultsSection.style.display === 'none') {
+                afficherMessage('❌ Aucun tirage a copier. Generez d\'abord un tirage.', 'error');
+                return;
+            }
+            
+            // Créer le texte du tirage
+            const totalParties = document.querySelectorAll('.party').length;
+            const totalJoueurs = joueursSelectionnes.length;
+            const joueursEnJeu = totalJoueurs - (document.getElementById('reserveList')?.textContent?.split(',').length || 0);
+            const benefice = joueursEnJeu * 1;
+            
+            let textePartage = `🏆 TirageExpress Premium - Tirage genere\n\n`;
+            textePartage += `📊 Resume :\n`;
+            textePartage += `• ${totalParties} partie(s) - ${totalJoueurs} joueurs\n`;
+            textePartage += `• ${joueursEnJeu} joueurs en jeu\n`;
+            textePartage += `• Benefice : ${benefice}€ (1€ par joueur)\n\n`;
+            
+            const joueursReserve = document.getElementById('reserveList')?.textContent;
+            if (joueursReserve) {
+                textePartage += `⏳ Reserve : ${joueursReserve}\n\n`;
+            }
+            
+            textePartage += `🎯 Parties :\n`;
+            document.querySelectorAll('.party').forEach((partie, index) => {
+                const titre = partie.querySelector('h3').textContent;
+                const equipes = partie.querySelectorAll('.team');
+                if (equipes.length === 2) {
+                    const equipe1 = equipes[0].textContent.replace(/\n/g, ' + ');
+                    const equipe2 = equipes[1].textContent.replace(/\n/g, ' + ');
+                    textePartage += `${titre} : ${equipe1} VS ${equipe2}\n`;
+                }
+            });
+            
+            const maintenant = new Date();
+            textePartage += `\n💰 Benefice total : ${benefice}€\n`;
+            textePartage += `📅 Genere le ${maintenant.toLocaleDateString('fr-FR')} a ${maintenant.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}\n`;
+            textePartage += `\n⚡ Genere par TirageExpress Premium`;
+            
+            // Copier dans le clipboard
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(textePartage).then(() => {
+                    afficherMessage('📋 Tirage copie dans le presse-papiers !', 'success');
+                }).catch(() => {
+                    fallbackCopy(textePartage);
+                });
+            } else {
+                fallbackCopy(textePartage);
+            }
+        }
+        
+        // Méthode de copie fallback
+        function fallbackCopy(texte) {
+            const textarea = document.createElement('textarea');
+            textarea.value = texte;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                afficherMessage('📋 Tirage copie dans le presse-papiers !', 'success');
+            } catch (err) {
+                afficherMessage('❌ Impossible de copier. Selectionnez manuellement le texte.', 'error');
+            }
+            document.body.removeChild(textarea);
         }
         
         // Autres fonctions
